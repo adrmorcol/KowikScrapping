@@ -1,0 +1,40 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fondo-principal);
+}
+
+:root {
+
+    /*General*/
+    --tipografia: 'Manrope', system-ui, sans-serif;
+    --fondo-principal: #F5F6F4;
+    --fondo-mapa: #E9EEE7;
+    --superficies: #FFFFFF;
+    --bordes: #E2E4DF;
+    --texto-principal: #1F2421;
+    --texto-secundario: #6B7168;
+
+
+    /*Botones*/
+    --boton-y-otros: #2F6F5E;
+
+
+    /*Estados*/
+    --letras-verificado: #2F6F5E;
+    --fondo-verificado: #E1F0EA;
+
+    --letras-pendiente: #B07A17;
+    --fondo-pendiente: #FBEFDC;
+
+    --letras-rechazado: #B3403A;
+    --fondo-rechazado: #FBEAE8;
+
+}
+

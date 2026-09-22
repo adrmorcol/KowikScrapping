@@ -1,0 +1,44 @@
+#barra-superior {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    font-family: var(--tipografia);
+}
+
+#titulo-proyecto {
+    width: fit-content;
+    height: 90%;
+    border-right: 1px solid var(--bordes);
+    display: flex;
+    flex-direction: row;
+}
+
+#logo {
+    width: 33px;
+    height: 33px;
+    font-size: medium;
+    font-weight: 800;
+    color: white;
+    background-color: var(--boton-y-otros);
+    border-radius: 8px;
+    align-content: center;
+    text-align: center;
+    margin-right: 10px;
+}
+
+#titulo-subtitulo {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+#nombre-proyecto {
+    font-weight: 800;
+    font-size: medium;
+}
+
+#subtitulo-proyecto {
+    font-weight: 100;
+    font-size: small;
+}
+

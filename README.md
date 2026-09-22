@@ -1,4 +1,6 @@
 # KowikScrapping
+
+
 ## Tecnologías seleccionadas
 
 ### Bots y automatización
@@ -15,11 +17,15 @@
 
 ### Backend
 
-* **Express con Node.js:** Es la mejor opción por la facilidad para consumir las APIs de Google y, al mismo tiempo, utilizar la librería Puppeteer.
+* **Express con Node.js:** Es la mejor opción por la facilidad para consumir las APIs de Google y al mismo tiempo utilizar la librería Puppeteer.
 
 ### BBDD
 
 * **MySQL:** Es la opción más sencilla, aunque me gustaría poder añadir una función para exportar los datos a CSV en caso de que me dé tiempo. De esta forma, la IA podría consumirlos y realizar el resumen de una manera más sencilla.
+
+### Sprints y tareas
+
+* **Plane:** Una herramienta web más para detallar las tareas y subtareas. Básica para la organización.
 
 ### Documentación
 
