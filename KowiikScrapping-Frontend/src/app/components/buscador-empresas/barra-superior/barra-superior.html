@@ -1,0 +1,19 @@
+<div id="barra-superior">
+    <div id="direccion">
+        <span>CENTRO</span>
+        <input type="text">
+    </div>
+    <div id="radio">
+        <span>RADIO DE BÚSQUEDA</span>
+        <div id="rango-texto">
+            <input #slider type="range" min="0.5" max="10" step="0.5" [value]="service.radioMetros() / 1000" 
+            (input)="service.radioMetros.set(slider.valueAsNumber * 1000)">
+            @if (service.radioMetros() < 1000) {
+                <span>{{ service.radioMetros() }} metros</span>
+            } @else {
+                <span>{{ service.radioMetros() / 1000 }} km</span>
+            }
+        </div>
+    </div>
+    <button><i class="fa-solid fa-magnifying-glass icono-principal"></i> Buscar empresas</button>
+</div>

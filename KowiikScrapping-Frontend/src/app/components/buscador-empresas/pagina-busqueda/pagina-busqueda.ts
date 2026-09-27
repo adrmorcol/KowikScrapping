@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { BarraSuperior } from '../barra-superior/barra-superior';
 import { ListadoEmpresas } from '../listado-empresas/listado-empresas';
 import { Mapa } from '../mapa/mapa';
@@ -11,4 +11,7 @@ import { Header } from '../../header/header';
   templateUrl: './pagina-busqueda.html',
   styleUrl: './pagina-busqueda.css',
 })
-export class PaginaBusqueda {}
+
+export class PaginaBusqueda {
+  
+}
