@@ -7,7 +7,6 @@ RUN npm ci
 
 COPY . .
 RUN npm run build
-RUN npm install
 
 # Etapa 2: servir los archivos compilados con nginx
 FROM nginx:alpine
