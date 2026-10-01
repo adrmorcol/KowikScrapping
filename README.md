@@ -83,6 +83,16 @@ La verdad es que muchas gracias por haberme dejado participar, me lo he pasado m
 ### WINDOWS
 
 2. Instala git bash y docker desktop desde el navegador
+   
+3. Ejecuta "docker compose up -d --build"
+
+4. Abre http://localhost:8000
+
+
+## INSTRUCCIONES DE USO
+
+- La barra de búsqueda de ciudades se activa al pulsar el enter
+- Cuando pulses encima de una empresa que no esté en la base de datos no te pongas a pulsar encima de otras por que colapsarás el bot de puppeteer
 
 
 ## EN CASO DE ERROR
