@@ -1,0 +1,373 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    font-family: var(--tipografia);
+    color: var(--texto-principal);
+}
+
+.pagina {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 14px;
+    padding: 22px 30px;
+}
+
+/* Título, buscador y recargar */
+.barra {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.titulos {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-right: auto;
+}
+
+.titulo {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.subtitulo {
+    font-size: 13px;
+    color: var(--texto-secundario);
+}
+
+.buscador {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 340px;
+    padding: 0 12px;
+    background-color: var(--superficies);
+    border: 1px solid var(--bordes);
+    border-radius: 9px;
+    color: var(--texto-secundario);
+}
+
+.buscador input {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.buscador:focus-within {
+    border-color: var(--boton-y-otros);
+}
+
+.boton-recargar {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--bordes);
+    border-radius: 9px;
+    background-color: var(--superficies);
+    color: var(--texto-secundario);
+    cursor: pointer;
+}
+
+.boton-recargar:hover {
+    color: var(--boton-y-otros);
+}
+
+/* Filtros por estado */
+.filtros {
+    display: flex;
+    gap: 6px;
+}
+
+.filtro {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    border: 1px solid var(--bordes);
+    border-radius: 999px;
+    background-color: var(--superficies);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    cursor: pointer;
+}
+
+.filtro.activo {
+    border-color: var(--boton-y-otros);
+    background-color: var(--fondo-verificado);
+    color: var(--letras-verificado);
+}
+
+.contador {
+    padding: 1px 7px;
+    border-radius: 999px;
+    background-color: var(--fondo-principal);
+    font-size: 11px;
+}
+
+.filtro.activo .contador {
+    background-color: var(--superficies);
+}
+
+/* Avisos */
+.aviso {
+    padding: 10px 14px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.aviso-error {
+    background-color: var(--fondo-rechazado);
+    color: var(--letras-rechazado);
+}
+
+/* Tabla */
+.contenedor-tabla {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    background-color: var(--superficies);
+    border: 1px solid var(--bordes);
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 11px 14px;
+    background-color: #FAFBF9;
+    border-bottom: 1px solid var(--bordes);
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    white-space: nowrap;
+}
+
+td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--bordes);
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+/* Cada dato de una celda en su propia línea */
+td > span,
+td > a,
+td > input {
+    display: block;
+}
+
+td > span + span,
+td > a + span,
+td > span + a,
+td > a + a {
+    margin-top: 2px;
+}
+
+tbody tr:hover td {
+    background-color: #FAFBF9;
+}
+
+td a {
+    color: var(--boton-y-otros);
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* La columna del nombre se queda fija al hacer scroll horizontal */
+.col-empresa {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 210px;
+    max-width: 260px;
+    white-space: normal;
+    background-color: var(--superficies);
+    border-right: 1px solid var(--bordes);
+}
+
+th.col-empresa {
+    z-index: 3;
+    background-color: #FAFBF9;
+}
+
+/* Y la de los botones, a la derecha, para no tener que hacer scroll para editar */
+.col-acciones {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    width: 1%;
+    text-align: right;
+    background-color: var(--superficies);
+    border-left: 1px solid var(--bordes);
+}
+
+th.col-acciones {
+    z-index: 3;
+    background-color: #FAFBF9;
+}
+
+.principal {
+    font-weight: 800;
+}
+
+.principal-fino {
+    font-weight: 600;
+}
+
+.secundario {
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.no-disponible {
+    color: #A3A8A0;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.editada {
+    margin-left: 5px;
+    font-size: 10px;
+    color: var(--texto-secundario);
+}
+
+tr.no-apta td:not(.col-acciones) > * {
+    opacity: .55;
+}
+
+/* Etiquetas de estado */
+.estado {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.estado-verificada {
+    background-color: var(--fondo-verificado);
+    color: var(--letras-verificado);
+}
+
+.estado-pendiente {
+    background-color: var(--fondo-pendiente);
+    color: var(--letras-pendiente);
+}
+
+.estado-no-apta {
+    background-color: var(--fondo-rechazado);
+    color: var(--letras-rechazado);
+}
+
+/* Botones de la fila */
+.boton-icono {
+    width: 30px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--texto-secundario);
+    cursor: pointer;
+}
+
+.boton-icono:hover:not(:disabled) {
+    border-color: var(--bordes);
+    color: var(--boton-y-otros);
+    background-color: var(--superficies);
+}
+
+.boton-icono:disabled {
+    opacity: .35;
+    cursor: default;
+}
+
+.boton-icono.guardar {
+    background-color: var(--boton-y-otros);
+    color: var(--superficies);
+}
+
+.boton-icono.guardar:hover:not(:disabled) {
+    background-color: #1F4F42;
+    color: var(--superficies);
+}
+
+/* Fila en edición */
+tr.editando td,
+tr.editando:hover td {
+    background-color: #F3F8F5;
+}
+
+tr.editando input,
+tr.editando select {
+    box-sizing: border-box;
+    width: 170px;
+    padding: 6px 8px;
+    border: 1px solid var(--bordes);
+    border-radius: 6px;
+    background-color: var(--superficies);
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--texto-principal);
+}
+
+tr.editando .col-empresa input {
+    width: 100%;
+}
+
+tr.editando input.corto {
+    width: 110px;
+}
+
+tr.editando input + input {
+    margin-top: 5px;
+}
+
+tr.editando input:focus,
+tr.editando select:focus {
+    outline: none;
+    border-color: var(--boton-y-otros);
+}
+
+tr.fila-error td {
+    background-color: var(--fondo-rechazado);
+    color: var(--letras-rechazado);
+    font-weight: 600;
+}
+
+tr.fila-vacia td {
+    padding: 40px;
+    text-align: center;
+    white-space: normal;
+    color: var(--texto-secundario);
+}
+
+tr.fila-vacia td > a {
+    display: inline;
+}

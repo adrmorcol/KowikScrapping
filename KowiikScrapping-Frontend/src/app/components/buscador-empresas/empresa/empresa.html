@@ -1,6 +1,13 @@
-<div class="tarjeta" (click)="service.seleccionarEmpresa(empresa())">
+<div class="tarjeta" [class.no-apta]="empresa().estado === 'no_apta'" (click)="service.seleccionarEmpresa(empresa())">
     <div class="titulo-subtitulo">
-        <span class="titulo">{{ empresa().nombre }}</span>
+        <span class="titulo">
+            @if (empresa().estado === 'verificada') {
+                <i class="fa-solid fa-circle-check icono-verificada" title="Verificada"></i>
+            } @else if (empresa().estado === 'no_apta') {
+                <i class="fa-solid fa-ban icono-no-apta" title="No apta"></i>
+            }
+            {{ empresa().nombre }}
+        </span>
         <span class="subtitulo">{{ empresa().sector }}</span>
     </div>
     <span class="distancia">

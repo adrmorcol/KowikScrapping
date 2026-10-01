@@ -45,6 +45,34 @@
     color: #6B7168;
 }
 
+/* Etiqueta de estado (debajo del sector) */
+.estado {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.estado-verificada {
+    background-color: #E1F0EA;
+    color: #2F6F5E;
+}
+
+.estado-pendiente {
+    background-color: #FBEFDC;
+    color: #B07A17;
+}
+
+.estado-no-apta {
+    background-color: #FBEAE8;
+    color: #B3403A;
+}
+
 /* Secciones */
 .seccion {
     display: flex;
@@ -144,4 +172,20 @@
 .boton-descartar:hover {
     background-color: #FBEAE8;
     border-color: #B3403A;
+}
+
+/* Botón pulsado (la empresa ya tiene ese estado): se ve "apagado" y sirve para quitarlo */
+.boton-verificar.activo {
+    border: 1px solid #2F6F5E;
+    background-color: #E1F0EA;
+    color: #2F6F5E;
+}
+
+.boton-verificar.activo:hover {
+    background-color: #CFE5DB;
+}
+
+.boton-descartar.activo {
+    border-color: #B3403A;
+    background-color: #FBEAE8;
 }

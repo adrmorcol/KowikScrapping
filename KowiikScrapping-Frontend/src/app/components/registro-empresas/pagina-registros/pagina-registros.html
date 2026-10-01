@@ -1,0 +1,185 @@
+<app-header></app-header>
+
+<div class="pagina">
+    <div class="barra">
+        <div class="titulos">
+            <span class="titulo">Registro de empresas</span>
+            <span class="subtitulo">Todas las empresas que has abierto. Pulsa el lápiz de una fila para corregir sus datos.</span>
+        </div>
+
+        <div class="buscador">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Buscar por nombre, CIF, localidad, teléfono..."
+                [value]="busqueda()" (input)="busqueda.set($any($event.target).value)">
+        </div>
+
+        <button class="boton-recargar" title="Recargar" (click)="service.cargar()" [disabled]="service.cargando()">
+            <i class="fa-solid fa-rotate-right" [class.fa-spin]="service.cargando()"></i>
+        </button>
+    </div>
+
+    <div class="filtros">
+        @for (f of filtros; track f.valor) {
+            <button class="filtro" [class.activo]="filtro() === f.valor" (click)="filtro.set(f.valor)">
+                {{ f.texto }} <span class="contador">{{ contadores()[f.valor] }}</span>
+            </button>
+        }
+    </div>
+
+    @if (service.error()) {
+        <div class="aviso aviso-error"><i class="fa-solid fa-triangle-exclamation"></i> {{ service.error() }}</div>
+    }
+
+    <div class="contenedor-tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-empresa">Empresa</th>
+                    <th>Estado</th>
+                    <th>Datos fiscales</th>
+                    <th>Ubicación</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Web</th>
+                    <th>Tamaño</th>
+                    <th>Decisor</th>
+                    <th>Contacto del decisor</th>
+                    <th>Actualizada</th>
+                    <th class="col-acciones"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (empresa of filtradas(); track empresa.id) {
+                    @if (editandoId() === empresa.id && borrador) {
+                        <!-- Fila en modo edición -->
+                        <tr class="editando" (keydown.enter)="guardar()" (keydown.escape)="cancelar()">
+                            <td class="col-empresa">
+                                <input [(ngModel)]="borrador.nombre" placeholder="Nombre *">
+                                <input [(ngModel)]="borrador.sector" placeholder="Sector">
+                            </td>
+                            <td>
+                                <select [(ngModel)]="borrador.estado">
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="verificada">Verificada</option>
+                                    <option value="no_apta">No apta</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input [(ngModel)]="borrador.razonSocial" placeholder="Razón social">
+                                <input [(ngModel)]="borrador.cif" placeholder="CIF" class="corto">
+                            </td>
+                            <td>
+                                <input [(ngModel)]="borrador.localidad" placeholder="Localidad">
+                                <input [(ngModel)]="borrador.provincia" placeholder="Provincia">
+                            </td>
+                            <td><input [(ngModel)]="borrador.telefono" placeholder="Teléfono" type="tel"></td>
+                            <td><input [(ngModel)]="borrador.email" placeholder="Email" type="email"></td>
+                            <td><input [(ngModel)]="borrador.web" placeholder="Web"></td>
+                            <td><input [(ngModel)]="borrador.tamanyo" placeholder="Empleados" type="number" min="0" class="corto"></td>
+                            <td>
+                                <input [(ngModel)]="borrador.decisor.nombre" placeholder="Nombre">
+                                <input [(ngModel)]="borrador.decisor.cargo" placeholder="Cargo">
+                            </td>
+                            <td>
+                                <input [(ngModel)]="borrador.decisor.telefono" placeholder="Teléfono" type="tel">
+                                <input [(ngModel)]="borrador.decisor.email" placeholder="Email" type="email">
+                            </td>
+                            <td class="secundario">{{ empresa.actualizadaEn | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td class="col-acciones">
+                                <button class="boton-icono guardar" title="Guardar (Enter)" (click)="guardar()" [disabled]="guardando()">
+                                    <i class="fa-solid" [class.fa-check]="!guardando()" [class.fa-spinner]="guardando()" [class.fa-spin]="guardando()"></i>
+                                </button>
+                                <button class="boton-icono" title="Cancelar (Esc)" (click)="cancelar()">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        @if (errorEdicion()) {
+                            <tr class="fila-error">
+                                <td colspan="12"><i class="fa-solid fa-triangle-exclamation"></i> {{ errorEdicion() }}</td>
+                            </tr>
+                        }
+                    } @else {
+                        <!-- Fila normal -->
+                        <tr [class.no-apta]="empresa.estado === 'no_apta'">
+                            <td class="col-empresa">
+                                <span class="principal">{{ empresa.nombre }}</span>
+                                @if (empresa.sector) { <span class="secundario">{{ empresa.sector }}</span> }
+                                @else { <span class="no-disponible">Sector no disponible</span> }
+                            </td>
+                            <td>
+                                @switch (empresa.estado) {
+                                    @case ('verificada') { <span class="estado estado-verificada"><i class="fa-solid fa-circle-check"></i> Verificada</span> }
+                                    @case ('no_apta') { <span class="estado estado-no-apta"><i class="fa-solid fa-ban"></i> No apta</span> }
+                                    @default { <span class="estado estado-pendiente"><i class="fa-solid fa-clock"></i> Pendiente</span> }
+                                }
+                            </td>
+                            <td>
+                                @if (empresa.razonSocial) { <span class="principal-fino">{{ empresa.razonSocial }}</span> }
+                                @else { <span class="no-disponible">Razón social no disponible</span> }
+                                @if (empresa.cif) { <span class="secundario">CIF {{ empresa.cif }}</span> }
+                                @else { <span class="no-disponible">CIF no disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.localidad) { <span>{{ empresa.localidad }}</span> }
+                                @else { <span class="no-disponible">Localidad no disponible</span> }
+                                @if (empresa.provincia) { <span class="secundario">{{ empresa.provincia }}</span> }
+                                @else { <span class="no-disponible">Provincia no disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.telefono) { <a [href]="'tel:' + empresa.telefono">{{ empresa.telefono }}</a> }
+                                @else { <span class="no-disponible">No disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.email) { <a [href]="'mailto:' + empresa.email">{{ empresa.email }}</a> }
+                                @else { <span class="no-disponible">No disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.web) { <a [href]="enlace(empresa.web)" target="_blank" rel="noopener">{{ dominio(empresa.web) }}</a> }
+                                @else { <span class="no-disponible">No disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.tamanyo !== null && empresa.tamanyo > 0) { <span>{{ empresa.tamanyo }} empleados</span> }
+                                @else { <span class="no-disponible">No disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.decisor?.nombre) { <span class="principal-fino">{{ empresa.decisor?.nombre }}</span> }
+                                @else { <span class="no-disponible">Nombre no disponible</span> }
+                                @if (empresa.decisor?.cargo) { <span class="secundario">{{ empresa.decisor?.cargo }}</span> }
+                                @else { <span class="no-disponible">Cargo no disponible</span> }
+                            </td>
+                            <td>
+                                @if (empresa.decisor?.telefono) { <a [href]="'tel:' + empresa.decisor?.telefono">{{ empresa.decisor?.telefono }}</a> }
+                                @else { <span class="no-disponible">Teléfono no disponible</span> }
+                                @if (empresa.decisor?.email) { <a [href]="'mailto:' + empresa.decisor?.email">{{ empresa.decisor?.email }}</a> }
+                                @else { <span class="no-disponible">Email no disponible</span> }
+                            </td>
+                            <td class="secundario">
+                                {{ empresa.actualizadaEn | date:'dd/MM/yyyy HH:mm' }}
+                                @if (empresa.editadaEn) { <i class="fa-solid fa-pen editada" title="Editada a mano"></i> }
+                            </td>
+                            <td class="col-acciones">
+                                <button class="boton-icono" title="Editar" (click)="editar(empresa)" [disabled]="editandoId() !== null">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                } @empty {
+                    <tr class="fila-vacia">
+                        <td colspan="12">
+                            @if (service.cargando()) {
+                                Cargando empresas...
+                            } @else if (service.empresas().length === 0) {
+                                Todavía no hay empresas guardadas. Abre la ficha de alguna desde el
+                                <a routerLink="/buscadorEmpresas">buscador</a> y aparecerá aquí.
+                            } @else {
+                                Ninguna empresa coincide con la búsqueda.
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

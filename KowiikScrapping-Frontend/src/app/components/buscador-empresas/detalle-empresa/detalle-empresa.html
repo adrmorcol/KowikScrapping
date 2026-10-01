@@ -2,6 +2,17 @@
     <div class="cabecera">
         <span class="titulo">{{ service.empresaSeleccionada()?.nombre }}</span>
         <span class="subtitulo">{{ service.empresaSeleccionada()?.sector }}</span>
+        @switch (service.empresaSeleccionada()?.estado) {
+            @case ('verificada') { <span class="estado estado-verificada"><i class="fa-solid fa-circle-check"></i> Verificada</span> }
+            @case ('no_apta') { <span class="estado estado-no-apta"><i class="fa-solid fa-ban"></i> No apta</span> }
+            @case ('pendiente') { <span class="estado estado-pendiente"><i class="fa-solid fa-clock"></i> Pendiente</span> }
+        }
+    </div>
+
+    <div class="seccion">
+        <span class="labels">Datos fiscales</span>
+        <span>{{ service.empresaSeleccionada()?.razonSocial ?? 'Razón social no disponible' }}</span>
+        <span>{{ service.empresaSeleccionada()?.cif ? 'CIF ' + service.empresaSeleccionada()?.cif : 'CIF no disponible' }}</span>
     </div>
 
     <div class="seccion">
@@ -19,19 +30,40 @@
     <div class="seccion">
         <span class="labels">TAMAÑO ESTIMADO</span>
         <span>
-            
+            @if ((service.empresaSeleccionada()?.tamanyo ?? 0) > 0) {
+                {{ service.empresaSeleccionada()?.tamanyo }} empleados
+            } @else {
+                No disponible
+            }
         </span>
     </div>
 
     <div class="tarjeta">
-        <span class="labels"></span>
-        <span class="tarjeta-nombre"></span>
-        <span class="tarjeta-cargo"></span>
-        <span></span>
+        <span class="labels">Decisor</span>
+        <span class="tarjeta-nombre">{{ service.empresaSeleccionada()?.decisor?.nombre }}</span>
+        <span class="tarjeta-cargo">{{ service.empresaSeleccionada()?.decisor?.cargo }}</span>
+        <span class="tarjeta-datos">{{ service.empresaSeleccionada()?.decisor?.telefono }}</span>
+        <span class="tarjeta-cargo">{{ service.empresaSeleccionada()?.decisor?.email }}</span>
     </div>
 
     <div class="acciones">
-        <button class="boton-verificar">Marcar verificada</button>
-        <button class="boton-descartar">Marcar como no apta</button>
+        <button class="boton-verificar"
+            [class.activo]="service.empresaSeleccionada()?.estado === 'verificada'"
+            (click)="service.cambiarEstado('verificada')">
+            @if (service.empresaSeleccionada()?.estado === 'verificada') {
+                <i class="fa-solid fa-rotate-left"></i> Quitar verificada
+            } @else {
+                Marcar verificada
+            }
+        </button>
+        <button class="boton-descartar"
+            [class.activo]="service.empresaSeleccionada()?.estado === 'no_apta'"
+            (click)="service.cambiarEstado('no_apta')">
+            @if (service.empresaSeleccionada()?.estado === 'no_apta') {
+                <i class="fa-solid fa-rotate-left"></i> Quitar no apta
+            } @else {
+                Marcar como no apta
+            }
+        </button>
     </div>
 </div>

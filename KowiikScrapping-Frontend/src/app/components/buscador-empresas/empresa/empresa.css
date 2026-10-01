@@ -35,3 +35,19 @@
     justify-content: center;
     align-items: center;
 }
+
+/* Estado de la empresa */
+.icono-verificada {
+    color: #2F6F5E;
+    margin-right: 4px;
+}
+
+.icono-no-apta {
+    color: #B3403A;
+    margin-right: 4px;
+}
+
+.tarjeta.no-apta .titulo-subtitulo,
+.tarjeta.no-apta .distancia {
+    opacity: .55;
+}

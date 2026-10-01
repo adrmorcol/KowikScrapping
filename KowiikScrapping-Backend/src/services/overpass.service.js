@@ -2,6 +2,7 @@ import { config } from '../config.js';
 import { distanciaMetros } from '../utils/distancia.js';
 import { devolverSector } from '../utils/sectores.js';
 
+/** @returns {Promise<import('../types.js').Empresa[]>} */
 export async function buscarEmpresasOSM(lat, lng, radio) {
   const zona = `around:${radio},${lat},${lng}`;
   const query = `
@@ -55,7 +56,12 @@ export async function buscarEmpresasOSM(lat, lng, radio) {
               sector: devolverSector(el.tags.office || el.tags.shop || el.tags.craft || el.tags.industrial || el.tags.amenity),
               telefono: el.tags.phone || el.tags['contact:phone'] || null,
               web: el.tags.website || el.tags['contact:website'] || null,
-              email: el.tags.email || el.tags['contact:email'] || null
+              email: el.tags.email || el.tags['contact:email'] || null,
+              cif: null,
+              razonSocial: null,
+              tamanyo: null,
+              estado: 'pendiente',
+              decisor: null
             };
           })
           .sort((a, b) => a.distancia - b.distancia);

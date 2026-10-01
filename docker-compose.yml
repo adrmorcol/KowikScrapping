@@ -9,7 +9,7 @@ services:
     environment:
       OVERPASS_MODE: init
       OVERPASS_META: "no"
-      OVERPASS_PLANET_URL: https://download.geofabrik.de/europe/spain/valencia-latest.osm.pbf
+      OVERPASS_PLANET_URL: https://download.geofabrik.de/europe/spain/valencia-260929.osm.pbf
       OVERPASS_DIFF_URL: https://download.geofabrik.de/europe/spain/valencia-updates/
       OVERPASS_PLANET_PREPROCESS: "mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm.pbf && chmod og+rx /db"
       OVERPASS_COMPRESSION: gz
