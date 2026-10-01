@@ -12,27 +12,28 @@ export class Mapa {
   @ViewChild('mapa') mapaRef!: ElementRef<HTMLDivElement>;
   service = inject(BusquedaRadio);
 
-  private puntoSeleccionado?: L.LatLng;
   private mapa?: L.Map;
   private marcador?: L.CircleMarker;
   private area?: L.Circle;
 
   constructor() {
     effect(() => {
+      this.service.coordenadas();
       this.service.radioMetros();
+      this.dibujarMarcador();
       this.dibujarArea();
+      this.mapa?.flyTo(this.service.coordenadas(), this.mapa.getZoom(), { duration: 1.1 });
     })
   }
 
   ngAfterViewInit() {
-    this.puntoSeleccionado = L.latLng(38.91393927010367, -0.549343228340149);
     this.crearMapa();
     this.dibujarMarcador();
     this.dibujarArea();
   }
 
   private crearMapa() {
-    this.mapa = L.map(this.mapaRef.nativeElement).setView(this.puntoSeleccionado!, 19);
+    this.mapa = L.map(this.mapaRef.nativeElement).setView(this.service.coordenadas(), 19);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
@@ -41,16 +42,16 @@ export class Mapa {
   }
 
   private seleccionarPunto(punto: L.LatLng) {
-    this.puntoSeleccionado = punto;
+    this.service.coordenadas.set({lat: punto.lat, lng: punto.lng})
     this.dibujarMarcador();
     this.dibujarArea();
   }
 
   private dibujarMarcador() {
-    if (!this.mapa || !this.puntoSeleccionado) return;
+    if (!this.mapa) return;
 
     this.marcador?.remove();
-    this.marcador = L.circleMarker(this.puntoSeleccionado!, {
+    this.marcador = L.circleMarker(this.service.coordenadas(), {
       radius: 7,
       color: '#FFFFFF',
       weight: 2,
@@ -61,10 +62,10 @@ export class Mapa {
   }
 
   private dibujarArea() {
-    if (!this.mapa || !this.puntoSeleccionado) return;
+    if (!this.mapa) return;
 
     this.area?.remove();
-      this.area = L.circle(this.puntoSeleccionado!, {
+      this.area = L.circle(this.service.coordenadas(), {
         radius: this.service.radioMetros(),
         color: '#2F6F5E',
         weight: 1.5,

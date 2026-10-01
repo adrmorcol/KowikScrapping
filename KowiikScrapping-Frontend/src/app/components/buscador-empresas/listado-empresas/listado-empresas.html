@@ -1,0 +1,11 @@
+<div id="contenedor">
+    <div id="cabecera">
+        <span class="titulo">{{ service.empresasResponse().length }} empresas encontradas</span>
+        <span class="subtitulo"></span>
+    </div>
+    <div id="listado">
+        @for (empresa of service.empresasResponse(); track empresa.id) {
+            <app-empresa [empresa]="empresa"></app-empresa>
+        }
+    </div>
+</div>

@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { EmpresasService } from '../../../services/empresas-service';
+import { Empresa } from '../empresa/empresa';
 
 @Component({
   selector: 'app-listado-empresas',
-  imports: [],
+  imports: [Empresa],
   templateUrl: './listado-empresas.html',
   styleUrl: './listado-empresas.css',
 })
-export class ListadoEmpresas {}
+export class ListadoEmpresas {
+  service = inject(EmpresasService);
+}

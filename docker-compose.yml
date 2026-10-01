@@ -1,0 +1,70 @@
+services:
+  overpass:
+    image: wiktorn/overpass-api
+    container_name: kowiik-overpass
+    ports:
+      - "12345:80"
+    volumes:
+      - overpass-db:/db
+    environment:
+      OVERPASS_MODE: init
+      OVERPASS_META: "no"
+      OVERPASS_PLANET_URL: https://download.geofabrik.de/europe/spain/valencia-latest.osm.pbf
+      OVERPASS_DIFF_URL: https://download.geofabrik.de/europe/spain/valencia-updates/
+      OVERPASS_PLANET_PREPROCESS: "mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm.pbf && chmod og+rx /db"
+      OVERPASS_COMPRESSION: gz
+      OVERPASS_USE_AREAS: "false"
+      OVERPASS_STOP_AFTER_INIT: "false"
+      OVERPASS_UPDATE_SLEEP: 3600
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4
+    container_name: kowiik-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: kowiik
+      MYSQL_USER: kowiik
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./KowiikScrapping-Backend/database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 20
+    restart: unless-stopped
+
+  backend:
+    build: ./KowiikScrapping-Backend
+    container_name: kowiik-backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+      overpass:
+        condition: service_started
+    environment:
+      PORT: 3000
+      OVERPASS_URLS: http://overpass/api/interpreter,https://overpass-api.de/api/interpreter
+      USER_AGENT: KowiikScrapping/1.0
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: kowiik
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: kowiik
+    restart: unless-stopped
+
+  frontend:
+    build: ./KowiikScrapping-Frontend
+    container_name: kowiik-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8000:80"
+    restart: unless-stopped
+
+volumes:
+  overpass-db:
+  mysql-data:

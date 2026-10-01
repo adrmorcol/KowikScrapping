@@ -1,0 +1,37 @@
+<div class="detalle">
+    <div class="cabecera">
+        <span class="titulo">{{ service.empresaSeleccionada()?.nombre }}</span>
+        <span class="subtitulo">{{ service.empresaSeleccionada()?.sector }}</span>
+    </div>
+
+    <div class="seccion">
+        <span class="labels">Ubicación</span>
+        <span>{{ service.empresaSeleccionada()?.localidad ?? 'No disponible' }}, {{ service.empresaSeleccionada()?.provincia ?? 'No disponible' }}</span>
+    </div>
+
+    <div class="seccion">
+        <span class="labels">Contacto</span>
+        <div class="fila"><i class="fa-solid fa-phone"></i><span>{{ service.empresaSeleccionada()?.telefono ?? 'No disponible' }}</span></div>
+        <div class="fila"><i class="fa-solid fa-envelope"></i><span>{{ service.empresaSeleccionada()?.email ?? 'No disponible' }}</span></div>
+        <div class="fila"><i class="fa-solid fa-globe"></i><span>{{ service.empresaSeleccionada()?.web ?? 'No disponible' }}</span></div>
+    </div>
+
+    <div class="seccion">
+        <span class="labels">TAMAÑO ESTIMADO</span>
+        <span>
+            
+        </span>
+    </div>
+
+    <div class="tarjeta">
+        <span class="labels"></span>
+        <span class="tarjeta-nombre"></span>
+        <span class="tarjeta-cargo"></span>
+        <span></span>
+    </div>
+
+    <div class="acciones">
+        <button class="boton-verificar">Marcar verificada</button>
+        <button class="boton-descartar">Marcar como no apta</button>
+    </div>
+</div>

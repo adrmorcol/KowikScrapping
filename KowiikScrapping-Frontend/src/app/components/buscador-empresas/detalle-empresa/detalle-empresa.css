@@ -1,0 +1,147 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.detalle {
+    height: 100%;
+    width: 380px;
+    box-sizing: border-box;
+    padding: 22px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--superficies);
+    border-left: 1px solid var(--bordes);
+    font-family: var(--tipografia);
+    font-size: 13px;
+    color: #1F2421;
+}
+
+/* Cabecera: nombre y sector */
+.cabecera {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.titulo {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.subtitulo {
+    font-size: 12px;
+    color: #6B7168;
+}
+
+/* Secciones */
+.seccion {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.labels {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6B7168;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* Filas de contacto: icono + texto */
+.fila {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.fila i {
+    width: 14px;
+    flex-shrink: 0;
+    text-align: center;
+    color: #6B7168;
+}
+
+.fila span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Tarjeta del decisor */
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px;
+    background-color: #F5F6F4;
+    border: 1px solid var(--bordes);
+    border-radius: 10px;
+}
+
+.tarjeta .labels {
+    margin-bottom: 3px;
+}
+
+.tarjeta-nombre {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.tarjeta-cargo {
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #6B7168;
+}
+
+/* Botones */
+.acciones {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.acciones button {
+    flex-grow: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.boton-verificar {
+    border: none;
+    background-color: #2F6F5E;
+    color: #FFFFFF;
+}
+
+.boton-verificar:hover {
+    background-color: #1F4F42;
+}
+
+.boton-descartar {
+    border: 1px solid #E2E4DF;
+    background-color: #FFFFFF;
+    color: #B3403A;
+}
+
+.boton-descartar:hover {
+    background-color: #FBEAE8;
+    border-color: #B3403A;
+}

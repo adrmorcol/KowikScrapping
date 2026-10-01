@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { Header } from '../header/header';
-import { LucideList, LucideSearch } from '@lucide/angular';
+import { Header } from '../compartidos/header/header';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, LucideSearch, LucideList, RouterLink],
+  imports: [Header, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

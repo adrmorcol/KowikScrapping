@@ -1,7 +1,7 @@
 <div id="barra-superior">
     <div id="direccion">
         <span>CENTRO</span>
-        <input type="text">
+        <input #direccion type="text" placeholder="Buscar dirección..." (keydown.enter)="buscarDireccion(direccion.value)">
     </div>
     <div id="radio">
         <span>RADIO DE BÚSQUEDA</span>
@@ -15,5 +15,5 @@
             }
         </div>
     </div>
-    <button><i class="fa-solid fa-magnifying-glass icono-principal"></i> Buscar empresas</button>
+    <button (click)="buscar()"><i class="fa-solid fa-magnifying-glass icono-principal"></i> Buscar empresas</button>
 </div>
