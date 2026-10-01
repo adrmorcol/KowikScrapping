@@ -1,0 +1,5 @@
+# No meter en la imagen lo que se genera dentro del contenedor
+node_modules
+dist
+.angular
+.vscode
