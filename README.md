@@ -28,30 +28,6 @@
 * **Plane:** Una herramienta web más para detallar las tareas y subtareas. Básica para la organización.
 
 
-
-## PASOS DE INSTALACIÓN DEL PROYECTO
-
-
-1. Entra al documento .env y cambia las credenciales por las de tu preferencia, haz esto mismo con el .env de la carpeta Backend
-
-### WINDOWS
-
-2. Instala git bash y docker desktop desde el navegador
-
-### LINUX
-
-
-2. Ejecuta el siguiente comando en tu consola "sudo docker compose up". En caso de no tener docker compose instalado ejecuta "curl -fsSL https://get.docker.com | sudo sh"
-
-3. La instalación de overpass durará un rato, así que si quieres puedes ir a por un café... o tres
-
-*IMPORTANTE: Si estás haciendo esto desde una máquina virtual asegúrate de que tienes al menos unos 15Gb de espacio libres (si, son bastantes pero abajo aclaro el por que) y bastante RAM sobrante*
-
-4. Arranca todo con docker compose up -d --build
-
-5. Abre http://localhost:8000
-
-
 ## Decisiones
 
 Bueno aquí vengo a explicar un poco el por que de cada decisión controversial que he tomado durante este proyecto:
@@ -85,3 +61,31 @@ La verdad es que muchas gracias por haberme dejado participar, me lo he pasado m
 - He mejorado mi frontend que ya llevaba desde junio oxidadillo
 - He aprendido un poco de express y de node.js
 - Pero sobretodo he aprendido a como organizar un proyecto y como dividir bien las responsabilidades para que cada fragmento sea 100% reutilizable
+
+
+## PASOS DE INSTALACIÓN DEL PROYECTO
+
+1. Crea un documento .env igual al .env.example y cambia las credenciales por las de tu preferencia, haz esto mismo con el .env.example de la carpeta KowiikScrapping-Backend
+
+### LINUX
+
+2. Ejecuta el siguiente comando en tu consola "sudo docker compose up -d --build". En caso de no tener docker compose instalado ejecuta "curl -fsSL https://get.docker.com | sudo sh"
+
+3. La instalación de overpass durará un rato, así que si quieres puedes ir a por un café... o tres
+
+*IMPORTANTE: Si estás haciendo esto desde una máquina virtual asegúrate de que tienes al menos unos 15Gb de espacio libres (si, son bastantes pero abajo aclaro el por que) y bastante RAM sobrante*
+
+4. Arranca todo con docker compose up -d --build
+
+5. Abre http://localhost:8000
+
+
+### WINDOWS
+
+2. Instala git bash y docker desktop desde el navegador
+
+
+## EN CASO DE ERROR
+
+- Mirar el puerto del .env "DB_PORT" a veces cambiarlo a un puerto que no esté siendo utilizado puede funcionar
+
